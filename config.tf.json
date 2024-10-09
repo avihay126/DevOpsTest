@@ -1,0 +1,16 @@
+{
+    "terraform": {
+        "backend" :{
+            "s3" :{
+                "bucket": "avihay-bucket",  
+                "key":"state_file/terraform.tfstate",            
+                "region":"eu-west-1"  
+            }
+        }
+        },
+        "provider":{
+            "aws": {
+                "region": "eu-west-1"
+            }
+        } 
+    }
