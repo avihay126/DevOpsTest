@@ -1,6 +1,7 @@
 resource "aws_subnet" "avihay-subnet_a" {
   vpc_id     = var.vpc_id
   cidr_block = var.cidr_sub_a
+  availability_zone = "eu-west-1a"
 
   tags = {
     Name = "avihay-subnet-a"
@@ -10,6 +11,7 @@ resource "aws_subnet" "avihay-subnet_a" {
 resource "aws_subnet" "avihay-subnet_b" {
   vpc_id     = var.vpc_id
   cidr_block = var.cidr_sub_b
+  availability_zone = "eu-west-1b"
 
   tags = {
     Name = "avihay-subnet-b"
@@ -83,3 +85,35 @@ resource "aws_s3_bucket_policy" "allow_user_access" {
   bucket = data.aws_s3_bucket.my_s3_bucket.id
   policy = data.aws_iam_policy_document.bucket_access_policy.json
 }
+
+
+
+
+module "eks" {
+
+  source          = "terraform-aws-modules/eks/aws"
+  version         = "20.24.0"
+
+  cluster_name    = var.cluster_name
+  cluster_version = "1.29"
+
+  enable_cluster_creator_admin_permissions = true
+
+  vpc_id = var.vpc_id
+  subnet_ids = [aws_subnet.avihay-subnet_a.id, 
+                aws_subnet.avihay-subnet_b.id
+              ]
+
+  eks_managed_node_groups = {
+    "avihay-nodegroup" = {
+      desired_capacity = 2
+      max_capacity     = 3
+      min_capacity     = 1
+      instance_types = ["t2.micro"] 
+    }
+
+    
+  }
+  
+}
+
