@@ -24,3 +24,9 @@ variable "nat_gateway" {
   type        = string
   default     = "nat-0440e3c0e49d26497"
 }
+
+
+variable "cluster_name" {
+  type        = string
+  default     = "avihay-cluster"
+}
