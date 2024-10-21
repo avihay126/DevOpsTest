@@ -22,28 +22,35 @@ This repository contains Terraform configurations to set up an Amazon EKS (Elast
    git clone https://github.com/yourusername/DevOpsTest.git
 
 2. Change directory into the project folder:
-        cd DevOpsTest
+    ```bash
+    cd DevOpsTest
 
 3. Initialize Terraform:
-        terraform init
+    ```bash
+    terraform init
 
 4. Create an execution plan:
-        terraform plan
+    ```bash
+    terraform plan
 
 5. Apply the configuration to create the resources:
-        terraform apply
+    ```bash
+    terraform apply
 
 ## Usage
 After the EKS cluster and associated resources are set up, you can interact with the cluster using kubectl.
 
 1. Update your kubeconfig file:
-        aws eks --region eu-west-1 update-kubeconfig --name avihay-cluster
+    ```bash
+    aws eks --region eu-west-1 update-kubeconfig --name avihay-cluster
 
 2. Check the cluster info:
-        kubectl cluster-info
+    ```bash
+    kubectl cluster-info
 
 3. List all pods across namespaces:
-        kubectl get pods --all-namespaces
+    ```bash
+    kubectl get pods --all-namespaces
 
 
 ## Variables
