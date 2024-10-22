@@ -113,8 +113,24 @@ module "eks" {
       min_capacity     = 1
       instance_types = ["t2.micro"] 
     }
+  }
 
+  access_entries = {
     
+    ester_access = {
+      kubernetes_groups = []
+      principal_arn     = "arn:aws:iam::730335218716:user/esterh"
+
+      policy_associations = {
+        view_policy = {
+          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSViewPolicy"
+          access_scope = {
+            namespaces = ["default"]
+            type       = "namespace"
+          }
+        }
+      }
+    }
   }
   
 }
