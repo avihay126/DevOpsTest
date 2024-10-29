@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: avihay-wordle-deployment
+spec:
+  replicas: 
+  selector:
+    matchLabels:
+      app: wordle
+  template:
+    metadata:
+      labels:
+        app: wordle
+    spec:
+      containers:
+      - name: avihay-wordle
+        image: 730335218716.dkr.ecr.eu-west-1.amazonaws.com/avihay-wordle:latest  
+        ports:
+        - containerPort: 8080  

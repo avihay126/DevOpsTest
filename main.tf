@@ -105,25 +105,33 @@ module "eks" {
   subnet_ids = [aws_subnet.avihay-subnet_a.id, 
                 aws_subnet.avihay-subnet_b.id
               ]
+  
+  cluster_addons = {
+    coredns                = {
+      addon_version = "v1.11.1-eksbuild.4"
+    }
+    aws-ebs-csi-driver         = {
+      addon_version = "v1.35.0-eksbuild.1"
+    }
+  }
 
   eks_managed_node_groups = {
     "avihay-nodegroup" = {
       desired_capacity = 2
       max_capacity     = 3
       min_capacity     = 1
-      instance_types = ["t2.micro"] 
+      instance_types = ["t2.small"] 
     }
   }
 
   access_entries = {
-    
     ester_access = {
       kubernetes_groups = []
       principal_arn     = "arn:aws:iam::730335218716:user/esterh"
 
       policy_associations = {
         view_policy = {
-          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSViewPolicy"
+          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
           access_scope = {
             namespaces = ["default"]
             type       = "namespace"
