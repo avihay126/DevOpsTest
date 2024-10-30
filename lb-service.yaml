@@ -3,9 +3,10 @@ kind: Service
 metadata:
   name: avihay-wordle-service
   annotations:
-    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "tcp"
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
     service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:eu-west-1:730335218716:certificate/8f4eeeea-9a1d-443c-a8c8-4de7f8b19aec
     service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
+    service.beta.kubernetes.io/aws-load-balancer-subnets: "subnet-0286dc8a81f534023,subnet-016fbecfa467a85f0"
 spec:
   type: LoadBalancer  
   selector:
