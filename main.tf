@@ -2,6 +2,7 @@ resource "aws_subnet" "avihay-subnet_a" {
   vpc_id     = var.vpc_id
   cidr_block = var.cidr_sub_a
   availability_zone = "eu-west-1a"
+  map_public_ip_on_launch                        = true
 
   tags = {
     Name = "avihay-subnet-a"
@@ -12,6 +13,7 @@ resource "aws_subnet" "avihay-subnet_b" {
   vpc_id     = var.vpc_id
   cidr_block = var.cidr_sub_b
   availability_zone = "eu-west-1b"
+  map_public_ip_on_launch                        = false
 
   tags = {
     Name = "avihay-subnet-b"
@@ -19,7 +21,20 @@ resource "aws_subnet" "avihay-subnet_b" {
 }
 
 
-resource "aws_route_table" "route_table" {
+resource "aws_route_table" "route_table_public" {
+  vpc_id = var.vpc_id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = var.internet_gateway
+  }
+
+  tags = {
+    Name = "avihay-rt-public"
+  }
+}
+
+resource "aws_route_table" "route_table_private" {
   vpc_id = var.vpc_id
 
   route {
@@ -28,19 +43,19 @@ resource "aws_route_table" "route_table" {
   }
 
   tags = {
-    Name = "avihay-rt"
+    Name = "avihay-rt-private"
   }
 }
 
 
 resource "aws_route_table_association" "rt_to_subnet_a" {
   subnet_id      = aws_subnet.avihay-subnet_a.id
-  route_table_id = aws_route_table.route_table.id
+  route_table_id = aws_route_table.route_table_public.id
 }
 
 resource "aws_route_table_association" "rt_to_subnet_b" {
   subnet_id      = aws_subnet.avihay-subnet_b.id
-  route_table_id = aws_route_table.route_table.id
+  route_table_id = aws_route_table.route_table_private.id
 }
 
 

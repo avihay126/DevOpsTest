@@ -26,6 +26,12 @@ variable "nat_gateway" {
 }
 
 
+variable "internet_gateway" {
+  type        = string
+  default     = "igw-075b258e232c87f8c"
+}
+
+
 variable "cluster_name" {
   type        = string
   default     = "avihay-cluster"
