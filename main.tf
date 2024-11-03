@@ -21,19 +21,6 @@ resource "aws_subnet" "avihay-subnet_b" {
 }
 
 
-# resource "aws_route_table" "route_table_public" {
-#   vpc_id = var.vpc_id
-
-#   route {
-#     cidr_block = "0.0.0.0/0"
-#     gateway_id = var.internet_gateway
-#   }
-
-#   tags = {
-#     Name = "avihay-rt-public"
-#   }
-# }
-
 resource "aws_route_table" "route_table_private" {
   vpc_id = var.vpc_id
 
@@ -156,5 +143,14 @@ module "eks" {
     }
   }
   
+}
+
+
+resource "aws_route53_record" "avihay_record" {
+  zone_id = var.domain_host_id
+  name    = "avihay.wix-devops-workshop.com"
+  type    = "CNAME"
+  ttl     = 60
+  records = ["k8s-default-avihaywo-7e8985c25f-9482fe6af4b5eee2.elb.eu-west-1.amazonaws.com"]
 }
 

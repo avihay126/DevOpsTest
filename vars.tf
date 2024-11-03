@@ -36,3 +36,9 @@ variable "cluster_name" {
   type        = string
   default     = "avihay-cluster"
 }
+
+
+variable "domain_host_id" {
+  type        = string
+  default     = "Z00269823B8KU0UBQVXPI"
+}
