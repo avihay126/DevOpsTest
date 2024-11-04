@@ -42,3 +42,14 @@ variable "domain_host_id" {
   type        = string
   default     = "Z00269823B8KU0UBQVXPI"
 }
+
+variable "cluster_version" {
+  type        = string
+  default     = "1.29"
+}
+
+
+variable "lb_dns" {
+  type        = string
+  default     = "ac8d68ed71289415887a10b56ca8f09d-b92249a2eb891590.elb.eu-west-1.amazonaws.com"
+}
