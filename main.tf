@@ -89,8 +89,6 @@ resource "aws_s3_bucket_policy" "allow_user_access" {
 }
 
 
-
-
 module "eks" {
 
   source          = "terraform-aws-modules/eks/aws"
@@ -116,10 +114,13 @@ module "eks" {
       addon_version = "v1.35.0-eksbuild.1"
     }
   }
+  eks_managed_node_group_defaults = {
+    instance_types = ["t2.small"]
+  }
 
   eks_managed_node_groups = {
     "avihay-nodegroup" = {
-      desired_capacity = 2
+      desired_capacity = 1
       max_capacity     = 3
       min_capacity     = 1
       instance_types = ["t2.small"] 
@@ -145,12 +146,11 @@ module "eks" {
   
 }
 
-
 resource "aws_route53_record" "avihay_record" {
   zone_id = var.domain_host_id
   name    = "avihay.wix-devops-workshop.com"
   type    = "CNAME"
   ttl     = 60
-  records = ["k8s-default-avihaywo-7e8985c25f-9482fe6af4b5eee2.elb.eu-west-1.amazonaws.com"]
+  records = [var.lb_dns]
 }
 
