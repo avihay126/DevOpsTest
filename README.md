@@ -33,7 +33,7 @@ The EKS cluster is deployed within the private subnets, keeping the nodes and se
 The **Network Load Balancer (NLB)** is deployed in the public subnets and listens for HTTP (port 80) and HTTPS (port 443) traffic. It forwards the traffic to the services running in the private subnets of the EKS cluster.
 
 ### IAM Roles & Policies
-The project uses **IAM roles** and **policies** to provide secure access to resources like S3 buckets and EKS nodes. For example, an IAM user `esterh` has permission to access specific resources in the cluster.
+The project uses **IAM roles** and **policies** to provide secure access to resources like S3 buckets and EKS nodes.
 
 ## Terraform Components
 
@@ -58,7 +58,7 @@ Terraform is used to automate the infrastructure setup, including the following 
 ### 3. EKS Cluster Creation
 - The **EKS Cluster** is created in the private subnets, so that the nodes are not directly exposed to the internet.
 - The cluster is set up with essential add-ons such as **CoreDNS** and **EBS CSI Driver**.
-- **IAM Policies** are created to control who can access the cluster (e.g., the user `esterh`).
+- **IAM Policies** are created to control who can access the cluster .
 
 ### 4. Load Balancer Setup
 - A **Network Load Balancer (NLB)** is created in the public subnets, making it accessible from the internet. It forwards incoming requests to the EKS nodes in the private subnets.
