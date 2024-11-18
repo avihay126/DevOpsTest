@@ -120,9 +120,9 @@ module "eks" {
 
   eks_managed_node_groups = {
     "avihay-nodegroup" = {
-      desired_capacity = 1
-      max_capacity     = 3
-      min_capacity     = 1
+      min_size     = 1
+      max_size     = 3
+      desired_size = 1
       instance_types = ["t2.small"] 
     }
   }
@@ -153,4 +153,3 @@ resource "aws_route53_record" "avihay_record" {
   ttl     = 60
   records = [var.lb_dns]
 }
-
