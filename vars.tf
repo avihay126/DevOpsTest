@@ -38,6 +38,16 @@ variable "cluster_name" {
 }
 
 
+variable "user_name" {
+  type        = string
+  default     = "avihay-user"
+}
+
+variable "s3bucket_name" {
+  type        = string
+  default     = "avihay-bucket"
+}
+
 variable "domain_host_id" {
   type        = string
   default     = "Z00269823B8KU0UBQVXPI"
