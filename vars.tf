@@ -4,6 +4,16 @@ variable "region" {
   default     = "eu-west-1"  
 }
 
+variable "zone_a" {
+  type        = string
+  default     = "eu-west-1a"
+}
+
+variable "zone_b" {
+  type        = string
+  default     = "eu-west-1b"
+}
+
 
 variable "vpc_id" {
   type        = string
@@ -58,10 +68,20 @@ variable "cluster_version" {
   default     = "1.29"
 }
 
+variable "instance_type" {
+  type        = string
+  default     = "t2.small"
+}
+
 
 variable "lb_dns" {
   type        = string
   default     = "ac8d68ed71289415887a10b56ca8f09d-b92249a2eb891590.elb.eu-west-1.amazonaws.com"
+}
+
+variable "dns_record" {
+  type        = string
+  default     = "avihay.wix-devops-workshop.com"
 }
 
 

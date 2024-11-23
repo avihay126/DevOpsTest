@@ -1,7 +1,7 @@
 resource "aws_subnet" "avihay-subnet_a" {
   vpc_id     = var.vpc_id
   cidr_block = var.cidr_sub_a
-  availability_zone = "eu-west-1a"
+  availability_zone = var.zone_a
   map_public_ip_on_launch                        = false
 
   tags = {
@@ -12,7 +12,7 @@ resource "aws_subnet" "avihay-subnet_a" {
 resource "aws_subnet" "avihay-subnet_b" {
   vpc_id     = var.vpc_id
   cidr_block = var.cidr_sub_b
-  availability_zone = "eu-west-1b"
+  availability_zone = var.zone_b
   map_public_ip_on_launch                        = false
 
   tags = {
@@ -115,7 +115,7 @@ module "eks" {
     }
   }
   eks_managed_node_group_defaults = {
-    instance_types = ["t2.small"]
+    instance_types = [var.instance_type]
   }
 
   eks_managed_node_groups = {
@@ -123,7 +123,7 @@ module "eks" {
       min_size     = 1
       max_size     = 3
       desired_size = 1
-      instance_types = ["t2.small"] 
+      instance_types = [var.instance_type] 
     }
   }
 
@@ -148,7 +148,7 @@ module "eks" {
 
 resource "aws_route53_record" "avihay_record" {
   zone_id = var.domain_host_id
-  name    = "avihay.wix-devops-workshop.com"
+  name    = var.dns_record
   type    = "CNAME"
   ttl     = 60
   records = [var.lb_dns]
