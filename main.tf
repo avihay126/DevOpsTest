@@ -51,12 +51,12 @@ resource "aws_route_table_association" "rt_to_subnet_b" {
 
 
 data "aws_s3_bucket" "my_s3_bucket" {
-  bucket = "avihay-bucket"  
+  bucket = var.s3bucket_name  
 }
 
 
 data "aws_iam_user" "my_user" {
-  user_name = "avihay-user"
+  user_name = var.user_name
 }
 
 
@@ -153,3 +153,4 @@ resource "aws_route53_record" "avihay_record" {
   ttl     = 60
   records = [var.lb_dns]
 }
+
